@@ -1,27 +1,32 @@
 Cobertura-ser-reader
+--------------------
 
-Set Up:
+Set Up
+------
 The cobertura serReader requirescobertura 2.1.1: https://github.com/cobertura/cobertura to be on the
 build path additionally cobertura will require slf4j (Simple Logging Facade for Java)
 found at http://www.slf4j.org/, just add the slf4j-api-...jar and slf4j-simple...jar
-to the buildpaht/ classpath
+to the buildpath/classpath
 
-Workflow:
+Workflow
+--------
 (1) Initialize the reader object
 (2) Load the serialized file on onto the serReader Object
 (3) Use the ser Reader tp create a hit or execution class map
 (4) Display the results
 
 serReader
+---------
 The serReader takes the serialized file cobertura produces whenever it 
 instruments a program and can extract information from the file. Currently it 
 can be used to find both coverage and hits per line of the instrumented program.
 The main fields for the serReader object are:
-    - classCoverageMap is a <Integer, Boolean> map, where key=line # & value=executed
-    - classHitMap is a <Integer, Integer> map, where key=line # & value=hit#
+    - classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
+    - classHitMap is a Integer, Integer map, where key=line # & value=hit#
 
 lineBasedSerReader
-The lineBasedSerReader is a subclass of the serReader. It uses a <Integer, Line>
+------------------
+The lineBasedSerReader is a subclass of the serReader. It uses a Integer, Line
 map where key=line # & value=various info about the line #. The Line object 
 contains information about the line such as it's number and how many pass or fail
 tests the line has been executed in. Originally the lineBasedSerReader was to be
@@ -35,6 +40,7 @@ However the other code that would have been used is included in the repo:
     - TestCoverageSuite: Collection of TestCoverage objects. 
 
 The workflow for the lineBasedSerReaderTarantula Approach would have been:
+--------------------------------------------------------------------------
 (1) Run one test case, use cobertura to output the serialized file with the lines
 executed
 (2) Use lineBasedSerReader to create a LineList of the executed lines, assign
