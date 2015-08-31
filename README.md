@@ -36,7 +36,7 @@ The lineBasedSerReader is a subclass of the serReader. It uses a Integer, Line
 map where key=line # & value=various info about the line #. The Line object 
 contains information about the line such as it's number and how many pass or fail
 tests the line has been executed in. Originally the lineBasedSerReader was to be
-used to implement the tarantula fault localization technique. But since cobertura
+used to re-implement the tarantula fault localization technique. But since cobertura
 does not do per test line coverage the implementation was never fully completed.
 
 lineBasedSerRerader Associated Code 
