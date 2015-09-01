@@ -30,6 +30,30 @@ The main fields for the serReader object are:
 
     - classHitMap is a Integer, Integer map, where key=line # & value=hit#
 
+readerMain
+----------
+readerMain is a simple example main constructed to initialize the serReader and print out the
+classCoverageMap and classHitMap of whatever serialized file the serReader loaded.
+readerMain takes one command line argument, which is the absolute path to a 
+cobertura.ser file.
+
+Test Run
+--------
+Within the repo is included the project triangle, you can use the serReader to deserialize
+the file produced when cobertura instruments triangle.
+
+- Go into Triangle and use cobertura to produce a serialized file
+	- cd Triangle
+	- mvn cobertura:cobertura-integration-test
+
+- In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
+      run the ReaderMain.java program with the argument being the absolute path to the .ser file
+	- java ReaderMain /absolute/path/to/cobertura.ser
+
+- ReaderMain will display which lines were covered by all the tests and how many times each line
+  was executed.   
+
+
 lineBasedSerReader
 ------------------
 The lineBasedSerReader is a subclass of the serReader. It uses a Integer, Line
