@@ -2,6 +2,11 @@ package coberturaTarantula;
 
 import java.io.File;
 
+/**
+ * Takes 1 arg - absolute path to a cobertura.ser file
+ * Prints the hits and coverage map ofthe program/object within that serialized file
+ */
+
 public class ReaderMain {
 
 	public static void main(String[] args) throws InterruptedException {
