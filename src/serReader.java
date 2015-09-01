@@ -54,10 +54,9 @@ public class serReader{
 		}
 	}
 	
-	/** Load all classes from ProjectData Object into a collection of ClassData Objects 
-	 * @throws InterruptedException **/
+	/** Load all classes from ProjectData Object into a collection of ClassData Objects */
 	@SuppressWarnings("unchecked")
-	public void loadClassInfo() throws InterruptedException {
+	public void loadClassInfo()  {
 		this.allClasses = this.project.getClasses();
 		classesLoaded=true;
 		System.out.print("Classes in Project:");
@@ -85,10 +84,10 @@ public class serReader{
 			
 			if (!classCoverage.isEmpty() && classCoverage != null) {
 				// display(classLineCoverage);
-				System.out.println(singleClass.getBaseName() + " placed in classMap");
+				System.out.println(singleClass.getBaseName() + " placed in classCoverageMap");
 				this.classCoverageMap.put(singleClass.getBaseName(), classCoverage);
 			} else{ 
-				System.out.println(singleClass.getBaseName() + " is empty, will not place in classMap");
+				System.out.println(singleClass.getBaseName() + " is empty, will not place in classCoverageMap");
 			}
 			System.out.println();
 		}
@@ -118,7 +117,7 @@ public class serReader{
 		for(ClassData singleClass : this.allClasses) {
 			System.out.println("Placing " + singleClass.getBaseName() + " into classHitMap ... ");
 			
-			TreeMap<Integer, Integer> classHits = createClassHitsCoverage(singleClass);
+			TreeMap<Integer, Integer> classHits = createClassHits(singleClass);
 			
 			//System.out.println(classHits);
 			
@@ -133,7 +132,7 @@ public class serReader{
 	}
 	
 	// take a class and creates a map that holds key=line number, value=# of hits 
-	private TreeMap<Integer,Integer> createClassHitsCoverage(ClassData singleClass){
+	private TreeMap<Integer,Integer> createClassHits(ClassData singleClass){
 		TreeMap<Integer, Integer> temp = new TreeMap<Integer, Integer>();
 		int allLinesAndBranches = singleClass.getNumberOfValidBranches() + singleClass.getNumberOfValidLines();
 		for(int i = 0; i < allLinesAndBranches; i++) {
@@ -177,9 +176,8 @@ public class serReader{
 		return this.classHitMap;
 	}
 	
-	/** Displays the classCoverageMap 
-	 * @throws InterruptedException **/
-	public void displayClassCoverageMap() throws InterruptedException{
+	/** Displays all the classCoverageMaps in the Project */
+	public void displayAllCoverageMaps(){
 		for(String className : this.classCoverageMap.keySet()) {
 			if (className != null && this.classCoverageMap.get(className) != null) {
 				System.out.println("Class: " + className);
@@ -188,9 +186,9 @@ public class serReader{
 		}
 	}
 	
-	/** Displays the classHitMap 
-	 * @throws InterruptedException **/
-	public void displayClassHitMap() throws InterruptedException{
+	/** Displays all the classHitMaps in the Project 
+	 */
+	public void displayAllHitMaps(){
 		for(String className : this.classHitMap.keySet()) {
 			if (className != null && this.classHitMap.get(className) != null) {
 				System.out.println("Class: " + className);
@@ -199,10 +197,9 @@ public class serReader{
 		}
 	}
 	
-	/** Takes class name, loops through all ClassData objects in Collection
-	 * if the class is in the Collection it will print out info about the class 
-	 * @throws InterruptedException **/
-	public void displayClassInfo(String className) throws InterruptedException{
+	/** loops through all ClassData objects in Collection
+	 * if the class is in the Collection it will print out info about the class */
+	public void displayClassHitAndCoverage(String className) {
 		checkClassesLoaded();
 		for(ClassData clazz : this.allClasses) {
 			if(clazz.getBaseName().equals(className)) {
@@ -213,10 +210,19 @@ public class serReader{
 		System.out.println(className + " Class is not in project");
 	}
 	
+	/** Displays information about all the ClassData objects in Collection
+	 */
+	public void displayAllClassHitAndCoverage() {
+		checkClassesLoaded();
+		for(ClassData clazz: this.allClasses) {
+			display(clazz);
+		}
+	}
+	
 	
 	//find various statistics about a ClassData object, helper program
 	// to get classClassInfo() method 
-	private void display(ClassData singleClass) throws InterruptedException{
+	private void display(ClassData singleClass) {
 			// construct a map where Integers: represents the line number
 			// Boolean: gets the info on whether or not the line was executed
 			// Each map corresponds to one class in the project
@@ -235,7 +241,7 @@ public class serReader{
 			System.out.println();
 			
 			classLineCoverage = createClassCoverage(singleClass);
-			classHitCoverage = createClassHitsCoverage(singleClass);
+			classHitCoverage = createClassHits(singleClass);
 			
 			System.out.println("Determining lines executed ...");
 			displayLines(classLineCoverage);
@@ -246,7 +252,7 @@ public class serReader{
 	}
 	
 	// loop through a classCoverage map and print out all the lines executed per class 
-	private void displayLines(Map<Integer, Boolean> classLineCoverage) throws InterruptedException{
+	private void displayLines(Map<Integer, Boolean> classLineCoverage) {
 		if(classLineCoverage.isEmpty() || classLineCoverage == null) {
 			System.out.println("Lines not covered in this class \n");
 		} else {
@@ -262,7 +268,7 @@ public class serReader{
 	}
 	
 	// loop through a classHit map and print out all the number of hits per line in a class 
-	private void displayHits(Map<Integer, Integer> classHitCoverage) throws InterruptedException{
+	private void displayHits(Map<Integer, Integer> classHitCoverage) {
 		if(classHitCoverage.isEmpty() || classHitCoverage == null) {
 			System.out.println("Lines not covered in this class \n");
 		} else {
