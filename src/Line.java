@@ -1,4 +1,4 @@
-package coberturaTarantula;
+package src;
 
 public class Line {
 	int line_num; 	    /** statement line number **/
