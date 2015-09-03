@@ -55,6 +55,9 @@ the file produced when cobertura instruments triangle.
 - ReaderMain will display which lines were covered by all the tests and how many times each line
   was executed.   
 
+-The classes in src were originally run in eclipse using the Run Configurations option to specify 
+command line arguments
+
 lineBasedSerReader
 ------------------
 The lineBasedSerReader is a subclass of the serReader. It uses a Integer, Line
