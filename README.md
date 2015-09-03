@@ -3,10 +3,12 @@ Cobertura-ser-reader
 
 Set Up
 ------
-The cobertura serReader requirescobertura 2.1.1: https://github.com/cobertura/cobertura to be on the
-build path additionally cobertura will require slf4j (Simple Logging Facade for Java)
-found at http://www.slf4j.org/, just add the slf4j-api-...jar and slf4j-simple...jar
-to the buildpath/classpath
+The cobertura serReader requires cobertura 2.1.1 to be on the build path additionally cobertura will 
+require slf4j (Simple Logging Facade for Java) just add the slf4j-api-...jar and slf4j-simple...jar 
+
+-https://github.com/cobertura/cobertura 
+
+-http://www.slf4j.org/
 
 Workflow
 --------
@@ -47,12 +49,11 @@ the file produced when cobertura instruments triangle.
 	- mvn cobertura:cobertura-integration-test
 
 - In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
-      run the ReaderMain.java program with the argument being the absolute path to the .ser file
+  run the ReaderMain.java program with the argument being the absolute path to the .ser file
 	- java ReaderMain /absolute/path/to/cobertura.ser
 
 - ReaderMain will display which lines were covered by all the tests and how many times each line
   was executed.   
-
 
 lineBasedSerReader
 ------------------
