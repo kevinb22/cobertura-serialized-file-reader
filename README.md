@@ -3,8 +3,11 @@ Cobertura-ser-reader
 
 Set Up
 ------
-The cobertura serReader requires cobertura 2.1.1 to be on the build path additionally cobertura will 
-require slf4j (Simple Logging Facade for Java) just add the slf4j-api-...jar and slf4j-simple...jar 
+The cobertura serReader requires the cobertura src files to be on the build path additionally cobertura will 
+require slf4j (Simple Logging Facade for Java) just add the slf4j-api-...jar and slf4j-simple...jar. The
+sites for these files are listed below. Alternatively the project includes the cobertura src files in the
+cobertura directory and the slf4j files in the lib directory. (Note: Cobertura-2.1.1 does not contain the 
+cobertura src files)
 
 -https://github.com/cobertura/cobertura 
 
@@ -25,7 +28,7 @@ serReader
 ---------
 The serReader takes the serialized file cobertura produces whenever it 
 instruments a program and can extract information from the file. Currently it 
-can be used to find both coverage and hits per line of the instrumented program.
+can be used to find both coverage and hits/executions per line of the instrumented program.
 The main fields for the serReader object are:
 
     - classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
@@ -48,14 +51,17 @@ the file produced when cobertura instruments triangle.
 	- cd Triangle
 	- mvn cobertura:cobertura-integration-test
 
+- Compile the reader classes in the src directory
+	- javac -cp lib/\\\* src/\*.java
+
 - In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
-  run the ReaderMain.java program with the argument being the absolute path to the .ser file
-	- java ReaderMain /absolute/path/to/cobertura.ser
+  run the ReaderMain.java program with the absolute path to the .ser file as the argument
+	- java -cp .:lib/\\\* src.ReaderMain triangle/target/cobertura/cobertura.ser
 
 - ReaderMain will display which lines were covered by all the tests and how many times each line
   was executed.   
 
--The classes in src were originally run in eclipse using the Run Configurations option to specify 
+- The classes in src were originally run in eclipse using the Run Configurations option to specify 
 command line arguments
 
 lineBasedSerReader
