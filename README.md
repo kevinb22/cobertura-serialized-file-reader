@@ -30,8 +30,10 @@ The serReader takes the serialized file cobertura produces whenever it
 instruments a program and can extract information from the file. Currently it 
 can be used to find both coverage and hits/executions per line of the instrumented program.
 The main fields for the serReader object are:
-    - classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
-    - classHitMap is a Integer, Integer map, where key=line # & value=hit #
+	
+	- classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
+
+	-  classHitMap is a Integer, Integer map, where key=line # & value=hit #
 
 readerMain
 ----------
@@ -69,15 +71,23 @@ map where key=line # & value=various info about the line #. The Line object
 contains information about the line such as it's number and how many pass or fail
 tests the line has been executed in. Originally the lineBasedSerReader was to be
 used to re-implement the tarantula fault localization technique. But since cobertura
-does not do per test line coverage the implementation was never fully completed.
+does not do per test line coverage the implementation was never fully completed. The
+lineBasedSerReader can be run using the similiar commands to the serReader above
+
+- compile the lineBasedReader classes in lineReader directory
+
+- java -cp .:lib/\\\* lineReader.lineBasesReaderMain triangle/target/cobertura/cobertura.ser
 
 lineBasedSerRerader Associated Code 
 ------------------
-    - Line: Simple object that holds information about a line in a program
-    - LineList: Collection of Line objects
-    - TestCoverage: Object that holds the pass or fail result of a test, as well
-    as the LineList corresponding to that test.
-    - TestCoverageSuite: Collection of TestCoverage objects. 
+
+- Line: Simple object that holds information about a line in a program
+
+- LineList: Collection of Line objects
+
+- TestCoverage: Object that holds the pass or fail result of a test, as well as the LineList corresponding to that test.
+
+- TestCoverageSuite: Collection of TestCoverage objects. 
 
 The workflow for the lineBasedSerReaderTarantula Approach would have been:
 --------------------------------------------------------------------------
