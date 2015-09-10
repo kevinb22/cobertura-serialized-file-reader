@@ -30,10 +30,8 @@ The serReader takes the serialized file cobertura produces whenever it
 instruments a program and can extract information from the file. Currently it 
 can be used to find both coverage and hits/executions per line of the instrumented program.
 The main fields for the serReader object are:
-
     - classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
-
-    - classHitMap is a Integer, Integer map, where key=line # & value=hit#
+    - classHitMap is a Integer, Integer map, where key=line # & value=hit #
 
 readerMain
 ----------
@@ -75,14 +73,10 @@ does not do per test line coverage the implementation was never fully completed.
 
 lineBasedSerRerader Associated Code 
 ------------------
-
     - Line: Simple object that holds information about a line in a program
-
     - LineList: Collection of Line objects
-
     - TestCoverage: Object that holds the pass or fail result of a test, as well
     as the LineList corresponding to that test.
-
     - TestCoverageSuite: Collection of TestCoverage objects. 
 
 The workflow for the lineBasedSerReaderTarantula Approach would have been:
@@ -99,3 +93,21 @@ the LineList to a TestCoverage with the test case results
 - (4) Put all the TestCoverage cases into a TestCoverageSuite object
 
 - (5) Use TestCoverageSuite to calculate suspiciousness for each Line Object
+
+Directory Structure
+-------------------
+The directory structure is as follows
+	
+	cobertura-ser-reader
+		|
+		|--- lib:			Jars or files used in the repo
+		|
+		|--- src:			Contains serReader and ReaderMain
+		|
+		|--- lineReader:		Contains all the code associated with the lineBasedSerReader subclass 
+		|
+		|--- triangle:			Test program 
+
+
+	
+

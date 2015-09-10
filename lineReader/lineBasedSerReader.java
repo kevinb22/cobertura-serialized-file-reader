@@ -1,10 +1,11 @@
-package src;
+package lineReader;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import src.serReader;
 import net.sourceforge.cobertura.coveragedata.ClassData;
 import net.sourceforge.cobertura.coveragedata.CoverageDataFileHandler;
 import net.sourceforge.cobertura.coveragedata.LineData;
@@ -30,8 +31,7 @@ public class lineBasedSerReader extends serReader {
 		return this.allClasses;
 	}
 	
-	/** Create a map where key=class name, value=Map(LineNumber, Line) 
-	 * @throws InterruptedException **/
+	/** Create a map where key=class name, value=Map(LineNumber, Line) **/
 	public void createClassLineMap() {
 		checkClassesLoaded();
 		this.classLineMap = new TreeMap<String, TreeMap<Integer, Line>>();
@@ -66,9 +66,8 @@ public class lineBasedSerReader extends serReader {
 		return this.classLineMap;
 	}
 	
-	/** displays the classLineMap 
-	 * @throws InterruptedException **/
-	public void displayClassLineMap() throws InterruptedException{
+	/** displays the classLineMap **/
+	public void displayClassLineMap() {
 		for(String className : this.classLineMap.keySet()) {
 			if (className != null && this.classLineMap.get(className) != null) {
 				System.out.println("Class: " + className);
@@ -100,7 +99,7 @@ public class lineBasedSerReader extends serReader {
 	}
 	
 	// loop through a classLineCoverage map and print out all the Line in the class 
-	private void display(Map<Integer, Line> classLineCoverage) throws InterruptedException{
+	private void display(Map<Integer, Line> classLineCoverage) {
 		if(classLineCoverage.isEmpty() || classLineCoverage == null) {
 			System.out.println("Lines not covered in this class \n");
 		} else {

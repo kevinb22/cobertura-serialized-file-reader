@@ -1,4 +1,4 @@
-package src;
+package LineReader;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

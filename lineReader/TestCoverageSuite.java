@@ -1,4 +1,4 @@
-package src;
+package lineReader;
 
 import java.util.ArrayList;
 import java.util.Collection;

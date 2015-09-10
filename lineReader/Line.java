@@ -1,4 +1,4 @@
-package src;
+package lineReader;
 
 public class Line {
 	int line_num; 	    /** statement line number **/
