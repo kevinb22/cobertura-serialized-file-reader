@@ -75,8 +75,9 @@ does not do per test line coverage the implementation was never fully completed.
 lineBasedSerReader can be run using the similiar commands to the serReader above
 
 - compile the lineBasedReader classes in lineReader directory
-
-- java -cp .:lib/\\\* lineReader.lineBasesReaderMain triangle/target/cobertura/cobertura.ser
+	- javac -cp .:lib/\\\* lineReader\*.java
+- run the lineBasedReaderMain
+	- java -cp .:lib/\\\* lineReader.lineBasesReaderMain triangle/target/cobertura/cobertura.ser
 
 lineBasedSerRerader Associated Code 
 ------------------
