@@ -19,51 +19,51 @@ public class LineList {
 	
     public LineList(){}
 	
-    /** add a Line to the_list **/
+    /** Add a Line to the_list. */
     public void add(Line line) {
 	this.the_list.add(line);
     }
 	
-    /** return the size of the LineList **/ 
+    /** Return the size of the LineList. */ 
     public int size(){
 	return the_list.size();
     }
 	
-    /** increase the total number of failed tests **/
+    /** Increase the total number of failed tests. */
     public void incrementFailedTests(){
 	this.totalFailedTests++;
     }
 	
-    /** add to total number of failed tests **/
+    /** Add to total number of failed tests. */
     public void addFailedTests(int failed){
 	this.totalFailedTests += failed;
     }
 	
-    /** public int get the total number of failed tests **/
+    /** Returns int of the total number of failed tests. */
     public int getTotalFailedTests(){
 	return this.totalFailedTests;
     }
 	
-    /** add to total number of passed tests **/
+    /** Add to total number of passed tests. */
     public void addPassedTests(int passed){
 	this.totalPassedTests += passed;
     }
 	
-    /** public int get the total number of passed tests **/
+    /** Returns an int of the total number of passed tests. */
     public int getTotalPassedTests(){
 	return this.totalPassedTests;
     }
 	
-    /** increment the total number of passed tests **/
+    /** Increment the total number of passed tests. */
     public void incrementPassedTests(){
 	this.totalPassedTests++;
     }
 	
-    /** calculate the suspiciousness of each statement in the list
-     *   pre: assumes all the necessary information has been attained for each field
-     *   (1) each Line in the code is in the the_list
-     *   (2) each Line has a line number, execution count, and knows the number of P/F tests it is in
-     *   (3) LineList knows who many tests F/P tests there are in total */
+    /** Calculate the suspiciousness of each statement in the list
+     *  pre: assumes all the necessary information has been attained for each field
+     *  (1) each Line in the code is in the the_list
+     *  (2) each Line has a line number, execution count, and knows the number of P/F tests it is in
+     *  (3) LineList knows who many tests F/P tests there are in total */
     public void prepStatements(){
 	for(int i = 0; i < the_list.size(); i ++){
 	    double susp_level = calculateSuspiciousness(the_list.get(i));	// calculate the suspiciousness level of the line
@@ -71,7 +71,7 @@ public class LineList {
 	}
     }
 
-    /** Return a double representing the suspiciousness level of the line **/
+    /** Return a double representing the suspiciousness level of the line. */
     public double calculateSuspiciousness(Line line){
 	int totalFailed = getTotalFailedTests();
 	int totalPassed = getTotalPassedTests();
@@ -85,7 +85,7 @@ public class LineList {
     }
 	
     /** Transfers the elements within the_list to a Queue in order to be binary sorted
-	clears the_list and returns the new Queue full of statements **/
+	clears the_list and returns the new Queue full of statements. */
     private Queue<Line> list2Q(){
 	Queue<Line> my_q = new LinkedList<Line>();
 	for(int i = 0; i < the_list.size(); i++) {
@@ -96,21 +96,21 @@ public class LineList {
     }
 	
 	
-    /** Transfers the elements of the Queue back into the_list in sorted order **/
+    /** Transfers the elements of the Queue back into the_list in sorted order. */
     private void q2List(Queue<Line> my_q) {
  	while(!my_q.isEmpty()) {
 	    the_list.add(my_q.remove());		
 	}
     }
 	
-    /** Sorts the lines in the_list where the most suspicious statement is at the 0 index of the list and descends in that order **/
+    /** Sorts the lines in the_list where the most suspicious statement is at the 0 index of the list and descends in that order. */
     public void sort(){
 	Queue<Line> my_q = list2Q();
 	mergeSort(my_q);
 	q2List(my_q);
     }
 	
-    /** Sorts the Queue recursively **/
+    /** Sorts the Queue recursively. */
     private void mergeSort(Queue<Line> seq){
 	if(1 < seq.size()) {
 	    int size1 = seq.size() / 2;
@@ -133,7 +133,7 @@ public class LineList {
 		
     }
 	
-    /** places each greater element between Queue q1, q1 into the Queue result **/
+    /** Places each greater element between Queue q1, q1 into the Queue result. */
     private void mergeSortHelper(Queue<Line> result, Queue<Line> q1, Queue<Line> q2) {
 		
 	while(!q1.isEmpty() && !q2.isEmpty()) {
@@ -152,7 +152,7 @@ public class LineList {
 	}
     }
 	
-    /** display the statements, though not necessarily in ranked order, only if the Line List is sorted **/
+    /** Display the statements, though not necessarily in ranked order, only if the Line List is sorted. */
     public void display() throws InterruptedException {
 	//System.out.println("Line in " + displayClassName());
 	for(int i = 0; i < the_list.size(); i++) {
@@ -160,12 +160,12 @@ public class LineList {
 	}
     }
 	
-    /** Sets the classname for the LineList **/
+    /** Sets the classname for the LineList. */
     public void setClassName(String className){
 	this.className=className;
     }
 	
-    /** Displays the classname for the LineList **/
+    /** Displays the classname for the LineList. */
     public String displayClassName(){
 	return this.className;
     }

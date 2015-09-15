@@ -18,15 +18,15 @@ public class LineBasedSerReader extends SerReader {
 	
     /** Map where each String represents the name of a class in ProjectData
      * Each Map holds the Line data associated per executed line in the class  
-     * solely used for this purpose, is not able to have other info about ClassData**/
+     * solely used for this purpose, is not able to have other info about ClassData. */
     private TreeMap<String, TreeMap<Integer, Line>> classesMap;
 	
-    /** Constructor, initialize the ser file, load the file into the ProjectData Object **/
+    /** Constructor, initialize the ser file, load the file into the ProjectData Object. */
     public LineBasedSerReader(File serFile) {
 	super(serFile);
     }
 	
-    /** Create a map where key=class name, value=Map(LineNumber, Line) **/
+    /** Create a map where key=class name, value=Map(LineNumber, Line). */
     public void createClassLineMap() {
 	checkClassesLoaded();
 	this.classesMap = new TreeMap<String, TreeMap<Integer, Line>>();
@@ -45,7 +45,7 @@ public class LineBasedSerReader extends SerReader {
 	}
     }
 	
-    /** Loops through classes in the classesMap to find a certain class, returns the Line Map **/
+    /** Loops through classes in the classesMap to find a certain class, returns the Line Map. */
     public TreeMap<Integer, Line> getClassLineInfo(String className){
 	for(String clazz : this.classesMap.keySet()){
 	    if(clazz.equals(className))
@@ -56,12 +56,12 @@ public class LineBasedSerReader extends SerReader {
     }
 	
 
-    /** returns the Class Line Map **/
+    /** returns the Class Line Map. */
     public TreeMap<String, TreeMap<Integer, Line>> getClassLineMap(){
 	return this.classesMap;
     }
 	
-    /** Displays the classLineMap **/
+    /** Displays the classLineMap. */
     public void displayClassLineMap() {
 	for(String className : this.classesMap.keySet()) {
 	    if (className != null && this.classesMap.get(className) != null) {
@@ -71,7 +71,7 @@ public class LineBasedSerReader extends SerReader {
 	}
     }
 	
-    /** Take a class and creates a map that holds key=line number, value=Line object**/
+    /** Take a class and creates a map that holds key=line number, value=Line object. */
     private TreeMap<Integer, Line> createClassLineCoverage(ClassData singleClass){
 	TreeMap<Integer, Line> temp = new TreeMap<Integer, Line>();
 	int allLinesAndBranches = singleClass.getNumberOfValidBranches() + singleClass.getNumberOfValidLines();
@@ -93,7 +93,7 @@ public class LineBasedSerReader extends SerReader {
 	return temp;
     }
 	
-    /** Loop through a classLineCoverage map and print out all the Line in the class **/
+    /** Loop through a classLineCoverage map and print out all the Line in the class. */
     private void display(Map<Integer, Line> classLineCoverage) {
 	if(classLineCoverage.isEmpty() || classLineCoverage == null) {
 	    System.out.println("Lines not covered in this class \n");
