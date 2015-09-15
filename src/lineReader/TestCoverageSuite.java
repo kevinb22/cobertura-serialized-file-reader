@@ -1,4 +1,4 @@
-package lineReader;
+package src.lineReader;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class TestCoverageSuite {
     private String testSuiteName;
 	
     /** ArrayList holds a collection of all the Line for the entire test suite
-	holds various information such as line number, execution count, ect. */
+     *holds various information such as line number, execution count, ect. */
     LineList allLines;
 
     /** Constructor, initializes with a ArrayList for TestCoverages and LineList object. */	
@@ -41,38 +41,40 @@ public class TestCoverageSuite {
     /** loop through all the test cases to get the accumulative passed and failed test count and 
      * assign it to a new Line in allLines. */
     public void sumAllLines(){
-	Map<Integer ,int[]> temp_map = new TreeMap<>(); 
+	Map<Integer, int[]> tempMap = new TreeMap<>(); 
+
 	for(TestCoverage t : allTests) {
-	    LineList temp_list = t.getStmts();
-	    for(int i = 0; i < temp_list.size(); i++) {
-		Line s = temp_list.the_list.get(i);
-		if(!temp_map.containsKey(s.line_num)) {
-		    temp_map.put(s.line_num, new int[2]);
-		    temp_map.get(s.line_num)[0] = s.getPassed();
+	    LineList tempList = t.getStmts();
+	    for(int i = 0; i < tempList.size(); i++) {
+		Line s = tempList.theList.get(i);
+		if(!tempMap.containsKey(s.lineNum)) {
+		    tempMap.put(s.lineNum, new int[2]);
+		    tempMap.get(s.lineNum)[0] = s.getPassed();
 		    allLines.addPassedTests(s.getPassed());
-		    temp_map.get(s.line_num)[1] = s.getFailed();
+		    tempMap.get(s.lineNum)[1] = s.getFailed();
 		    allLines.addFailedTests(s.getFailed());
 		} else {
-		    temp_map.put(s.line_num, temp_map.get(s.line_num));
-		    temp_map.get(s.line_num)[0] += s.getPassed();
+		    tempMap.put(s.lineNum, tempMap.get(s.lineNum));
+		    tempMap.get(s.lineNum)[0] += s.getPassed();
 		    allLines.addPassedTests(s.getPassed());
-		    temp_map.get(s.line_num)[1] += s.getFailed();
+		    tempMap.get(s.lineNum)[1] += s.getFailed();
 		    allLines.addFailedTests(s.getFailed());
 		}
 	    }
 	}
-	for(Integer i : temp_map.keySet()) {
+
+	for(Integer i : tempMap.keySet()) {
 	    Line s = new Line(i);
-	    s.setPassed(temp_map.get(i)[0]);
-	    s.setFailed(temp_map.get(i)[1]);
+	    s.setPassed(tempMap.get(i)[0]);
+	    s.setFailed(tempMap.get(i)[1]);
 	    allLines.add(s);
 	}
     }
 	
     /** Displays all the tests currently in test suite. */
     public void displayTests(){
-        for(TestCoverage t : allTests){
-            System.out.println(t);
+	for(TestCoverage t : allTests){
+	    System.out.println(t);
         }
     }
 }

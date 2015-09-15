@@ -1,4 +1,4 @@
-package src;
+package src.main;
 
 import java.io.File;
 import java.util.Collection;
@@ -79,7 +79,6 @@ public class SerReader{
 	    System.out.println("Placing " + singleClass.getBaseName() + " into classMap ... ");
 	    TreeMap<Integer, Boolean> classCoverage = createClassCoverageMap(singleClass);
 			
-			
 	    if (!classCoverage.isEmpty() && classCoverage != null) {
 		System.out.println(singleClass.getBaseName() + " placed in classCoverageMap");
 		this.classCoverageMap.put(singleClass.getBaseName(), classCoverage);
@@ -149,7 +148,6 @@ public class SerReader{
 	return null;
     }
 	
-		
     /** Loops through Class Map to find a certain class name, returns the Hit Coverage Map of that class. */
     public TreeMap<Integer, Integer> getClassHitInfo(String className){
 	for(String clazz : this.classHitsMap.keySet()){
@@ -210,7 +208,6 @@ public class SerReader{
 	    display(clazz);
 	}
     }
-	
 	
     /** Find various statistics about a ClassData object, helper program to get classClassInfo() method. */
     private void display(ClassData singleClass) {

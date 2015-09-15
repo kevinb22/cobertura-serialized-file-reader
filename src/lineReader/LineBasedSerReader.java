@@ -1,10 +1,10 @@
-package lineReader;
+package src.lineReader;
 
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import src.SerReader;
+import src.main.SerReader;
 import net.sourceforge.cobertura.coveragedata.ClassData;
 import net.sourceforge.cobertura.coveragedata.LineData;
 
@@ -34,12 +34,12 @@ public class LineBasedSerReader extends SerReader {
 	    System.out.println("Placing " + singleClass.getBaseName() + " into classMap ... ");
 	    TreeMap<Integer, Line> classLineCoverage = createClassLineCoverage(singleClass);
 	    System.out.println(classLineCoverage);
-			
+		
 	    if (!classLineCoverage.isEmpty() && classLineCoverage != null) {
-		System.out.println(singleClass.getBaseName() + " placed in classMap");
-		this.classesMap.put(singleClass.getBaseName(), classLineCoverage);
+	    	System.out.println(singleClass.getBaseName() + " placed in classMap");
+	    	this.classesMap.put(singleClass.getBaseName(), classLineCoverage);
 	    } else{ 
-		System.out.println(singleClass.getBaseName() + " is empty, will not place in classMap");
+	    	System.out.println(singleClass.getBaseName() + " is empty, will not place in classMap");
 	    }
 	    System.out.println();
 	}
@@ -80,13 +80,13 @@ public class LineBasedSerReader extends SerReader {
 	    if(line != null && singleClass.isValidSourceLineNumber(i)) {
 		double hits = line.getHits();
 		if(line.isCovered() && hits > 0) { 
-		    Line code_line = new Line(i);
-		    code_line.set_exec_count((int)hits);
-		    temp.put(i, code_line);
+		    Line codeLine = new Line(i);
+		    codeLine.setExecCount((int)hits);
+		    temp.put(i, codeLine);
 		} else {
-		    Line code_line = new Line(i);
-		    code_line.set_exec_count(0);
-		    temp.put(i, code_line);
+		    Line codeLine = new Line(i);
+		    codeLine.setExecCount(0);
+		    temp.put(i, codeLine);
 		}
 	    }
 	}
@@ -100,9 +100,9 @@ public class LineBasedSerReader extends SerReader {
 	} else {
 	    for(Integer i : classLineCoverage.keySet()) {
 		if(classLineCoverage.get(i) != null)
-		    System.out.println(classLineCoverage.get(i));
+	    	System.out.println(classLineCoverage.get(i));
 	    }
-	    System.out.println();
+	System.out.println();
 	}
     }
 }

@@ -1,4 +1,4 @@
-package lineReader;
+package src.lineReader;
 
 /**
  * This class represents a line in a program, it holds information
@@ -8,82 +8,82 @@ package lineReader;
  */
 
 public class Line {
-    int line_num; 	    /** statement line number */
-    int exec_count;     /** count of times statement has been executed, accumulative throughout all tests */
-    int failed_s;       /** number of times statement was executed by passed tests */
-    int passed_s;       /** number of times statement was executed by failed tests */
-    double susp_level;  /** suspicious level of statement **/
+    int lineNum;       /** statement line number */
+    int execCount;     /** count of times statement has been executed, accumulative throughout all tests */
+    int failedS;       /** number of times statement was executed by passed tests */
+    int passedS;       /** number of times statement was executed by failed tests */
+    double suspLevel;  /** suspicious level of statement **/
 	
     /** Initialize the Line with no fields. */
     public Line() {}
 	
     /** Initialize the Line with a line number. */
-    public Line(int line_num) {
-	set_line_num(line_num);
+    public Line(int lineNum) {
+	setLineNum(lineNum);
     }
 	
     /** Set the line number of this statement. */
-    public void set_line_num(int line_num){
-	this.line_num = line_num;
+    public void setLineNum(int lineNum){
+	this.lineNum = lineNum;
     }
 	
     /** Return the line number the Line represents. */
     public int getLineNum(){
-	return this.line_num;
+	return this.lineNum;
     }
 	
     /** Increase the execution count of this statements by one. */
-    public void increment_exec_count(){
-	this.exec_count++;
+    public void incrementExecCount(){
+	this.execCount++;
     }
 	
     /** Set the execution count of this statement to the parameter. */
-    public void set_exec_count(int exec_count){
-	this.exec_count = exec_count;
+    public void setExecCount(int execCount){
+	this.execCount = execCount;
     }
 	
     /** Increment the amount of failed tests by one. */
     public void addFailed(){
-	this.failed_s++;
+	this.failedS++;
     }
 	
     /** Set the number of failed tests equal to the parameter. */
-    public void setFailed(int failed_s){
-	this.failed_s = failed_s;
+    public void setFailed(int failedS){
+	this.failedS = failedS;
     }
 	
     /** Return the total amount of failed tests associated with this statement. */
     public int getFailed(){
-	return this.failed_s;
+	return this.failedS;
     }
 	
     /** Increment the number of passed tests by one. */
     public void addPassed(){
-	this.passed_s++;
+	this.passedS++;
     }
 	
     /** Return the total amount of passed tests this statement is in. */
-    public void setPassed(int passed_s){
-	this.passed_s = passed_s;
+    public void setPassed(int passedS){
+	this.passedS = passedS;
     }
 	
     /** Return the total amount of passed tests associated with this statement. */
     public int getPassed(){
-	return this.passed_s;
+	return this.passedS;
     }
 	
     /** Returns the suspiciousness of the statement. */
-    public double get_susp(){
-	return this.susp_level;
+    public double getSusp(){
+	return this.suspLevel;
     }
 	
     /** Set the suspiciousness value for this statement. */
-    public void set_susp_level(double level){
-	this.susp_level = level;
+    public void setSuspLevel(double level){
+	this.suspLevel = level;
     }
 	
     /** Return a string in format line#, passed#, failed#, suspicion-level. */
     public String toString(){
-	return "line #: " + this.line_num + ", passed tests: " + this.passed_s + " , failed tests: " + this.failed_s + ", suspicion-level: " + this.susp_level;
+	return "line #: " + this.lineNum + ", passed tests: " + this.passedS + " , failed tests: " + this.failedS + ", suspicion-level: " + this.suspLevel;
     }
 }

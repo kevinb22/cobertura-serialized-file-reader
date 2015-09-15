@@ -1,4 +1,4 @@
-package lineReader;
+package src.lineReader;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -15,18 +15,18 @@ public class LineList {
     private String className;
     private int totalFailedTests;
     private int totalPassedTests;
-    ArrayList<Line> the_list= new ArrayList<Line>();
+    ArrayList<Line> theList= new ArrayList<Line>();
 	
     public LineList(){}
 	
-    /** Add a Line to the_list. */
+    /** Add a Line to theList. */
     public void add(Line line) {
-	this.the_list.add(line);
+	this.theList.add(line);
     }
 	
     /** Return the size of the LineList. */ 
     public int size(){
-	return the_list.size();
+	return theList.size();
     }
 	
     /** Increase the total number of failed tests. */
@@ -61,13 +61,13 @@ public class LineList {
 	
     /** Calculate the suspiciousness of each statement in the list
      *  pre: assumes all the necessary information has been attained for each field
-     *  (1) each Line in the code is in the the_list
+     *  (1) each Line in the code is in the theList
      *  (2) each Line has a line number, execution count, and knows the number of P/F tests it is in
      *  (3) LineList knows who many tests F/P tests there are in total */
     public void prepStatements(){
-	for(int i = 0; i < the_list.size(); i ++){
-	    double susp_level = calculateSuspiciousness(the_list.get(i));	// calculate the suspiciousness level of the line
-	    the_list.get(i).set_susp_level(susp_level);						// set the suspiciousness level of the line
+	for(int i = 0; i < theList.size(); i ++){
+	    double suspLevel = calculateSuspiciousness(theList.get(i));	// calculate the suspiciousness level of the line
+	    theList.get(i).setSuspLevel(suspLevel);			// set the suspiciousness level of the line
 	}
     }
 
@@ -75,39 +75,39 @@ public class LineList {
     public double calculateSuspiciousness(Line line){
 	int totalFailed = getTotalFailedTests();
 	int totalPassed = getTotalPassedTests();
-	int failed_s = line.getFailed();
-	int passed_s = line.getPassed();
+	int failedS = line.getFailed();
+	int passedS = line.getPassed();
 		
-	double numerator = 1.0 * failed_s / totalFailed;
-	double denominator = (1.0 * passed_s / totalPassed) + (1.0 * failed_s / totalFailed);
+	double numerator = 1.0 * failedS / totalFailed;
+	double denominator = (1.0 * passedS / totalPassed) + (1.0 * failedS / totalFailed);
 		
 	return numerator / denominator;
     }
 	
-    /** Transfers the elements within the_list to a Queue in order to be binary sorted
-	clears the_list and returns the new Queue full of statements. */
+    /** Transfers the elements within theList to a Queue in order to be binary sorted
+     * clears theList and returns the new Queue full of statements. */
     private Queue<Line> list2Q(){
-	Queue<Line> my_q = new LinkedList<Line>();
-	for(int i = 0; i < the_list.size(); i++) {
-	    my_q.add(the_list.get(i));
+	Queue<Line> myQ = new LinkedList<Line>();
+	for(int i = 0; i < theList.size(); i++) {
+	    myQ.add(theList.get(i));
 	}
-	the_list.clear();
-	return my_q;
+	theList.clear();
+	return myQ;
     }
 	
 	
-    /** Transfers the elements of the Queue back into the_list in sorted order. */
-    private void q2List(Queue<Line> my_q) {
- 	while(!my_q.isEmpty()) {
-	    the_list.add(my_q.remove());		
+    /** Transfers the elements of the Queue back into theList in sorted order. */
+    private void q2List(Queue<Line> myQ) {
+ 	while(!myQ.isEmpty()) {
+	    theList.add(myQ.remove());		
 	}
     }
 	
-    /** Sorts the lines in the_list where the most suspicious statement is at the 0 index of the list and descends in that order. */
+    /** Sorts the lines in theList where the most suspicious statement is at the 0 index of the list and descends in that order. */
     public void sort(){
-	Queue<Line> my_q = list2Q();
-	mergeSort(my_q);
-	q2List(my_q);
+	Queue<Line> myQ = list2Q();
+	mergeSort(myQ);
+	q2List(myQ);
     }
 	
     /** Sorts the Queue recursively. */
@@ -129,20 +129,19 @@ public class LineList {
 	    mergeSort(q1);
 	    mergeSort(q2);
 	    mergeSortHelper(seq, q1, q2);
-	}
-		
+	}	
     }
 	
     /** Places each greater element between Queue q1, q1 into the Queue result. */
-    private void mergeSortHelper(Queue<Line> result, Queue<Line> q1, Queue<Line> q2) {
-		
+    private void mergeSortHelper(Queue<Line> result, Queue<Line> q1, Queue<Line> q2) {	
 	while(!q1.isEmpty() && !q2.isEmpty()) {
-	    if(q1.peek().get_susp() > q2.peek().get_susp()) {
+	    if(q1.peek().getSusp() > q2.peek().getSusp()) {
 		result.add(q1.remove());
 	    } else {
 		result.add(q2.remove());
 	    }
 	}
+		
 	while(!q1.isEmpty()) {
 	    result.add(q1.remove());
 	}
@@ -153,10 +152,9 @@ public class LineList {
     }
 	
     /** Display the statements, though not necessarily in ranked order, only if the Line List is sorted. */
-    public void display() throws InterruptedException {
-	//System.out.println("Line in " + displayClassName());
-	for(int i = 0; i < the_list.size(); i++) {
-	    System.out.println(the_list.get(i));
+    public void display() {
+	for(int i = 0; i < theList.size(); i++) {
+	    System.out.println(theList.get(i));
 	}
     }
 	

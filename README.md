@@ -51,12 +51,12 @@ the file produced when cobertura instruments triangle.
 	- cd Triangle
 	- mvn cobertura:cobertura-integration-test
 
-- Compile the reader classes in the src directory
-	- javac -cp lib/\\\* src/\*.java
+- Compile the reader classes in the src/main directory
+	- javac -cp lib/\\\* src/main/\*.java
 
 - In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
   run the ReaderMain.java program with the absolute path to the .ser file as the argument
-	- java -cp .:lib/\\\* src.ReaderMain triangle/target/cobertura/cobertura.ser
+	- java -cp .:lib/\\\* src.Main.ReaderMain triangle/target/cobertura/cobertura.ser
 
 - ReaderMain will display which lines were covered by all the tests and how many times each line
   was executed.   
@@ -75,12 +75,12 @@ does not do per test line coverage the implementation was never fully completed.
 lineBasedSerReader can be run using the similiar commands to the serReader above
 
 - compile the lineBasedReader classes in lineReader directory
-	- javac -cp .:lib/\\\* lineReader\*.java
+	- javac -cp .:lib/\\\* src/lineReader\*.java
 - run the lineBasedReaderMain
-	- java -cp .:lib/\\\* lineReader.lineBasesReaderMain triangle/target/cobertura/cobertura.ser
+	- java -cp .:lib/\\\* src.lineReader.lineBasesReaderMain triangle/target/cobertura/cobertura.ser
 
 lineBasedSerRerader Associated Code 
-------------------
+-----------------------------------
 
 - Line: Simple object that holds information about a line in a program
 
@@ -113,11 +113,14 @@ The directory structure is as follows
 		|
 		|--- lib:			Jars or files used in the repo
 		|
-		|--- src:			Contains serReader and ReaderMain
-		|
-		|--- lineReader:		Contains all the code associated with the lineBasedSerReader subclass 
-		|
 		|--- triangle:			Test program 
+		|
+		|--- src:			Contains source code for the readers
+		   |
+		   |
+		   |--- main			Contains serReader and ReaderMain
+		   |
+		   |--- lineReader:		Contains all the code associated with the lineBasedSerReader subclass 
 
 
 	
