@@ -11,7 +11,6 @@ import java.util.TreeMap;
  * */
 
 public class TestCoverageSuite {
-	
     /** ArrayList to hold all the tests in a TestSuite. */
     private ArrayList<TestCoverage> allTests;
 	

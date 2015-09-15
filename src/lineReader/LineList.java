@@ -12,10 +12,10 @@ import java.util.Queue;
  */
 
 public class LineList {
-    private String className;
-    private int totalFailedTests;
-    private int totalPassedTests;
-    ArrayList<Line> theList= new ArrayList<Line>();
+    private String className;				/** Name of the class the LineList represents. */
+    private int totalFailedTests;			/** Total failed tests produced by the test class. */
+    private int totalPassedTests;			/** Total passed tests produced by test class. */
+    ArrayList<Line> theList= new ArrayList<Line>();	/** ArrayList to hold List Objects. */
 	
     public LineList(){}
 	

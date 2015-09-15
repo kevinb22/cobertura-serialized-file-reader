@@ -8,11 +8,11 @@ package src.lineReader;
  */
 
 public class Line {
-    int lineNum;       /** statement line number */
-    int execCount;     /** count of times statement has been executed, accumulative throughout all tests */
-    int failedS;       /** number of times statement was executed by passed tests */
-    int passedS;       /** number of times statement was executed by failed tests */
-    double suspLevel;  /** suspicious level of statement **/
+    int lineNum;       /** Statement line number. */
+    int execCount;     /** Count of times statement has been executed, accumulative throughout all tests. */
+    int failedS;       /** Number of times statement was executed by passed tests. */
+    int passedS;       /** Number of times statement was executed by failed tests. */
+    double suspLevel;  /** Suspicious level of statement. */
 	
     /** Initialize the Line with no fields. */
     public Line() {}

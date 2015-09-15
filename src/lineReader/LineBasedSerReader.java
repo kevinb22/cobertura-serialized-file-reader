@@ -15,7 +15,6 @@ import net.sourceforge.cobertura.coveragedata.LineData;
  */
 
 public class LineBasedSerReader extends SerReader {
-	
     /** Map where each String represents the name of a class in ProjectData
      * Each Map holds the Line data associated per executed line in the class  
      * solely used for this purpose, is not able to have other info about ClassData. */
