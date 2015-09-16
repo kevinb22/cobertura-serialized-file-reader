@@ -53,7 +53,7 @@ the file produced when cobertura instruments triangle.
 
 - In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
   run the ReaderMain.java program with the absolute path to the .ser file as the argument
-        -  ant -Darg0=triangle/target/cobertura/cobertura.ser run-main
+	-  ant -Darg0=triangle/target/cobertura/cobertura.ser run-main
 
 - ReaderMain will display which lines were covered by all the tests and how many times each line
   was executed.   
