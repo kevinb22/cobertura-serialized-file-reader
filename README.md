@@ -33,12 +33,12 @@ The main fields for the serReader object are:
 	
 	- classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
 
-	-  classHitMap is a Integer, Integer map, where key=line # & value=hit #
+	-  classHitsMap is a Integer, Integer map, where key=line # & value=hit #
 
 readerMain
 ----------
 readerMain is a simple example main constructed to initialize the serReader and print out the
-classCoverageMap and classHitMap of whatever serialized file the serReader loaded.
+classCoverageMap and classHitsMap of whatever serialized file the serReader loaded.
 readerMain takes one command line argument, which is the absolute path to a 
 cobertura.ser file.
 
@@ -77,7 +77,7 @@ lineBasedSerReader can be run using the similiar commands to the serReader above
 - compile the lineBasedReader classes in lineReader directory
 	- javac -cp .:lib/\\\* src/lineReader\*.java
 - run the lineBasedReaderMain
-	- java -cp .:lib/\\\* src.lineReader.lineBasesReaderMain triangle/target/cobertura/cobertura.ser
+	- java -cp .:lib/\\\* src.lineReader.LineBasesReaderMain triangle/target/cobertura/cobertura.ser
 
 lineBasedSerRerader Associated Code 
 -----------------------------------

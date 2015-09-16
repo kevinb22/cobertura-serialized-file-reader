@@ -22,6 +22,6 @@ public class ReaderMain {
 	reader.createClassHitsMaps();
 		
 	//displays all the Hit and Coverage maps in the Project
-	reader.displayAllClassHitAndCoverageMaps();		
+	reader.displayAllClassHitsAndCoverageMaps();		
     }
 }
