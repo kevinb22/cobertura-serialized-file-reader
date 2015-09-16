@@ -9,9 +9,9 @@ import java.util.TreeMap;
  */
 
 public class TestCoverage {
-    private LineList stmts;
-    private boolean passed;
-    private String testName;
+    private LineList stmts;   	/** LineList that holds all the lines executed/covered by the test. */
+    private boolean passed;	/** Result of the test either true(passed) or false(failed). */
+    private String testName;	/** Name of the test (the test header). */
 	
     public TestCoverage(){}
 	

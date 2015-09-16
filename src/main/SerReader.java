@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
-
 import net.sourceforge.cobertura.coveragedata.ClassData;
 import net.sourceforge.cobertura.coveragedata.CoverageDataFileHandler;
 import net.sourceforge.cobertura.coveragedata.LineData;
@@ -14,6 +13,18 @@ import net.sourceforge.cobertura.coveragedata.ProjectData;
  * This class deserializes a cobertura.ser file and creates a map representing lines executed or 
  * map representing hits per line of a the program contained in the .ser file.
  * A cobertura produced .ser file is required as a parameter in the constructor.
+ *
+ * Once this object is declared an initialized the first call should be to the loadClassInfo()
+ * method which loads all the information from the .ser file to the object.
+ * Next the createClassCoverageMaps() and createClassHitsMaps() methods should be called
+ * which create the executions and hits maps respectively.
+ * Finally the displayAllClassHitsAndCoverageMaps() method should be called to dispaly both
+ * these maps.
+ *
+ * Alternatively displayAllHitsMaps() and displayAllCoverageMaps() displays only the hits or 
+ * coverage maps in the object.
+ * Finally displayClassHitsAndCoverageMaps(String className) prints the hits and coverage maps
+ * of the class specified by the string. 
  */
 
 public class SerReader{
@@ -189,8 +200,8 @@ public class SerReader{
     }
 	
     /** Loops through all ClassData objects in Collection
-     *  if the class is in the Collection it will print out hit and coverage info about the class. */
-    public void displayClassHitAndCoverageMaps(String className) {
+     *  if the class is in the Collection it will print out hits and coverage info about the class. */
+    public void displayClassHitsAndCoverageMaps(String className) {
 	checkClassesLoaded();
 	for(ClassData clazz : this.allClasses) {
 	    if(clazz.getBaseName().equals(className)) {
@@ -202,7 +213,7 @@ public class SerReader{
     }
 	
     /** Displays information about all the ClassData objects in Collection. */
-    public void displayAllClassHitAndCoverageMaps() {
+    public void displayAllClassHitsAndCoverageMaps() {
 	checkClassesLoaded();
 	for(ClassData clazz: this.allClasses) {
 	    display(clazz);
@@ -212,7 +223,7 @@ public class SerReader{
     /** Find various statistics about a ClassData object, helper program to get classClassInfo() method. */
     private void display(ClassData singleClass) {
 	Map<Integer, Boolean> classLineCoverage = new TreeMap<Integer, Boolean>();
-	Map<Integer, Integer> classHitCoverage = new TreeMap<Integer, Integer>();
+	Map<Integer, Integer> classHitsCoverage = new TreeMap<Integer, Integer>();
 	String className = singleClass.getBaseName();
 			
 	System.out.println("Class: " + className);
@@ -225,13 +236,13 @@ public class SerReader{
 	System.out.println();
 			
 	classLineCoverage = createClassCoverageMap(singleClass);
-	classHitCoverage = createClassHitsMap(singleClass);
+	classHitsCoverage = createClassHitsMap(singleClass);
 			
 	System.out.println("Determining lines executed ...");
 	displayCoverage(classLineCoverage);
 			
 	System.out.println("Determining hits per lines ...");
-	displayHits(classHitCoverage);
+	displayHits(classHitsCoverage);
     }
 	
     /** Loop through a classCoverage map and print out all the lines executed per class. */
@@ -250,13 +261,13 @@ public class SerReader{
 	}
     }
 	
-    /** Loop through a classHit map and print out all the number of hits per line in a class. */
-    private void displayHits(Map<Integer, Integer> classHitCoverage) {
-	if(classHitCoverage.isEmpty() || classHitCoverage == null) {
+    /** Loop through a classHits map and print out all the number of hits per line in a class. */
+    private void displayHits(Map<Integer, Integer> classHitsCoverage) {
+	if(classHitsCoverage.isEmpty() || classHitsCoverage == null) {
 	    System.out.println("Lines not covered in this class \n");
 	} else {
-	    for(Integer i : classHitCoverage.keySet()) {
-		System.out.println("line: " + i + " hits: " + classHitCoverage.get(i));
+	    for(Integer i : classHitsCoverage.keySet()) {
+		System.out.println("line: " + i + " hits: " + classHitsCoverage.get(i));
 	    }
 	    System.out.println();
 	}

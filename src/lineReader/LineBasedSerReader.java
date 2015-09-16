@@ -3,7 +3,6 @@ package src.lineReader;
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
-
 import src.main.SerReader;
 import net.sourceforge.cobertura.coveragedata.ClassData;
 import net.sourceforge.cobertura.coveragedata.LineData;
@@ -12,12 +11,20 @@ import net.sourceforge.cobertura.coveragedata.LineData;
  * This class deserializes a cobertura.ser file and creates a map with with a 
  * Line Object pertaining to each line of a the program contained in the .ser file.
  * A cobertura produced .ser file is required as a parameter in the constructor.
+ *
+ * Once this object is declared and initialized the first call should be to
+ * the loadClassInfo() method which loads all the info in the .ser file to the object.
+ * Next the object needs to call thecreateClassesMap() method. This method creates a Line Map 
+ * for each class that is in the .ser file. 
+ * Afterwards displayLineMaps() can be called to display all the line maps held by the object.
  */
 
 public class LineBasedSerReader extends SerReader {
     /** Map where each String represents the name of a class in ProjectData
-     * Each Map holds the Line data associated per executed line in the class  
-     * solely used for this purpose, is not able to have other info about ClassData. */
+     *  For each map in the value field
+     *  The key in the map represents the line number of the porgram and the value is a 
+     *  Line object holding information about the line 
+     */
     private TreeMap<String, TreeMap<Integer, Line>> classesMap;
 	
     /** Constructor, initialize the ser file, load the file into the ProjectData Object. */
@@ -26,26 +33,26 @@ public class LineBasedSerReader extends SerReader {
     }
 	
     /** Create a map where key=class name, value=Map(LineNumber, Line). */
-    public void createClassLineMap() {
+    public void createClassesMap() {
 	checkClassesLoaded();
 	this.classesMap = new TreeMap<String, TreeMap<Integer, Line>>();
 	for(ClassData singleClass : this.allClasses) {
-	    System.out.println("Placing " + singleClass.getBaseName() + " into classMap ... ");
+	    System.out.println("Placing " + singleClass.getBaseName() + " into classesMap ... ");
 	    TreeMap<Integer, Line> classLineCoverage = createClassLineCoverage(singleClass);
 	    System.out.println(classLineCoverage);
 		
 	    if (!classLineCoverage.isEmpty() && classLineCoverage != null) {
-	    	System.out.println(singleClass.getBaseName() + " placed in classMap");
+	    	System.out.println(singleClass.getBaseName() + " placed in classesMap");
 	    	this.classesMap.put(singleClass.getBaseName(), classLineCoverage);
 	    } else{ 
-	    	System.out.println(singleClass.getBaseName() + " is empty, will not place in classMap");
+	    	System.out.println(singleClass.getBaseName() + " is empty, will not place in classesMap");
 	    }
 	    System.out.println();
 	}
     }
 	
-    /** Loops through classes in the classesMap to find a certain class, returns the Line Map. */
-    public TreeMap<Integer, Line> getClassLineInfo(String className){
+    /** Loops through the classesMap to find the class specified by the parameter, returns the Line Map of the class. */
+    public TreeMap<Integer, Line> getClassLineMap(String className){
 	for(String clazz : this.classesMap.keySet()){
 	    if(clazz.equals(className))
 		return this.classesMap.get(clazz);
@@ -55,13 +62,13 @@ public class LineBasedSerReader extends SerReader {
     }
 	
 
-    /** returns the Class Line Map. */
-    public TreeMap<String, TreeMap<Integer, Line>> getClassLineMap(){
+    /** Returns the classesMap. */
+    public TreeMap<String, TreeMap<Integer, Line>> getclassesMap(){
 	return this.classesMap;
     }
 	
-    /** Displays the classLineMap. */
-    public void displayClassLineMap() {
+    /** Displays the Line Map for all classes in classesMap */
+    public void displayLineMaps() {
 	for(String className : this.classesMap.keySet()) {
 	    if (className != null && this.classesMap.get(className) != null) {
 		System.out.println("Class: " + className);
@@ -92,7 +99,7 @@ public class LineBasedSerReader extends SerReader {
 	return temp;
     }
 	
-    /** Loop through a classLineCoverage map and print out all the Line in the class. */
+    /** Loop through a Line Coverage map of a class and print out all the Lines. */
     private void display(Map<Integer, Line> classLineCoverage) {
 	if(classLineCoverage.isEmpty() || classLineCoverage == null) {
 	    System.out.println("Lines not covered in this class \n");

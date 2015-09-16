@@ -17,10 +17,10 @@ public class LineBasedReaderMain {
 	* (5) Display map
 	*/	
 	File f = new File(args[0]);	
-	LineBasedSerReader reader = new LineBasedSerReader(f);
-	reader.loadClassInfo();
-	reader.createClassLineMap();
-	reader.displayClassLineMap();
+	LineBasedSerReader lineBasedReader = new LineBasedSerReader(f);
+	lineBasedReader.loadClassInfo();
+	lineBasedReader.createClassesMap();
+	lineBasedReader.displayLineMaps();
     }
 }
 
