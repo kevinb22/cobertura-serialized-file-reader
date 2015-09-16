@@ -16,16 +16,16 @@ cobertura src files)
 Workflow
 --------
 
-- (1) Initialize the reader object
+- (1) Initialize the SerReader object
 
-- (2) Load the serialized file on onto the serReader Object
+- (2) Load the serialized file on onto the SerReader Object
 
-- (3) Use the ser Reader tp create a hit or execution class map
+- (3) Use the SerReader tp create a hit or execution class map
 
 - (4) Display the results
 
-serReader
----------
+RerReader Class
+---------------
 The serReader takes the serialized file cobertura produces whenever it 
 instruments a program and can extract information from the file. Currently it 
 can be used to find both coverage and hits/executions per line of the instrumented program.
@@ -35,9 +35,9 @@ The main fields for the serReader object are:
 
 	-  classHitsMap is a Integer, Integer map, where key=line # & value=hit #
 
-readerMain
-----------
-readerMain is a simple example main constructed to initialize the serReader and print out the
+ReaderMain Class
+----------------
+readerMain is a main class constructed to initialize the serReader and print out the
 classCoverageMap and classHitsMap of whatever serialized file the serReader loaded.
 readerMain takes one command line argument, which is the absolute path to a 
 cobertura.ser file.
@@ -51,12 +51,9 @@ the file produced when cobertura instruments triangle.
 	- cd Triangle
 	- mvn cobertura:cobertura-integration-test
 
-- Compile the reader classes in the src/main directory
-	- javac -cp lib/\\\* src/main/\*.java
-
 - In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
   run the ReaderMain.java program with the absolute path to the .ser file as the argument
-	- java -cp .:lib/\\\* src.Main.ReaderMain triangle/target/cobertura/cobertura.ser
+        -  ant -Darg0=triangle/target/cobertura/cobertura.ser run-main
 
 - ReaderMain will display which lines were covered by all the tests and how many times each line
   was executed.   
@@ -64,8 +61,8 @@ the file produced when cobertura instruments triangle.
 - The classes in src were originally run in eclipse using the Run Configurations option to specify 
 command line arguments
 
-lineBasedSerReader
-------------------
+LineBasedSerReader Class
+------------------------
 The lineBasedSerReader is a subclass of the serReader. It uses a Integer, Line
 map where key=line # & value=various info about the line #. The Line object 
 contains information about the line such as it's number and how many pass or fail
@@ -74,12 +71,10 @@ used to re-implement the tarantula fault localization technique. But since cober
 does not do per test line coverage the implementation was never fully completed. The
 lineBasedSerReader can be run using the similiar commands to the serReader above
 
-- compile the lineBasedReader classes in lineReader directory
-	- javac -cp .:lib/\\\* src/lineReader\*.java
-- run the lineBasedReaderMain
-	- java -cp .:lib/\\\* src.lineReader.LineBasesReaderMain triangle/target/cobertura/cobertura.ser
+- run the LineBasedReaderMain
+	- ant -Darg0=triangle/target/cobertura/cobertura.ser run-lb-main
 
-lineBasedSerRerader Associated Code 
+LineBasedSerReader Code 
 -----------------------------------
 
 - Line: Simple object that holds information about a line in a program
