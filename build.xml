@@ -1,0 +1,36 @@
+<project name="cobertura-ser-reader" default="compile" basedir=".">
+
+<!-- Target to clean up -->
+    <target name ="clean" description="Clean">
+        <delete dir="bin"/>
+    </target>
+
+<!-- Target to initialize -->
+   <target name="init">
+      <mkdir dir="bin"/>
+   </target>
+
+<!-- Target to compile the SerReader classes-->
+    <target name="compile-ser-reader" depends="init" description="Compile">
+       <javac srcdir="./src/main" destdir="bin" debug="true" fork="no" includeantruntime="true">
+           <classpath>
+            <pathelement path="lib/cobertura-2.1.1.jar"/>
+            <pathelement path="lib/slf4j-simple-1.7.12.jar"/>
+            <pathelement path="lib/slf4j-api-1.7.12.jar"/>
+           </classpath>
+       </javac>
+    </target>
+
+<!-- Target to compile the LineBasedSerReader classes-->
+    <target name="compile-line-based-ser-reader" depends="compile-ser-reader" description="Compile">
+       <javac srcdir="./src/lineReader" destdir="bin" debug="true" fork="no" includeantruntime="true">
+           <classpath>
+            <pathelement path="bin/main/SerReader.class"/>
+            <pathelement path="lib/cobertura-2.1.1.jar"/>
+            <pathelement path="lib/slf4j-simple-1.7.12.jar"/>
+            <pathelement path="lib/slf4j-api-1.7.12.jar"/>
+           </classpath>
+       </javac>
+    </target>
+</project>
+
