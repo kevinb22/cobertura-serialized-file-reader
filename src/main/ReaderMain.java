@@ -1,4 +1,4 @@
-package src.main;
+package main;
 
 import java.io.File;
 
@@ -10,18 +10,18 @@ import java.io.File;
 public class ReaderMain {
 
     public static void main(String[] args) throws InterruptedException {
-	/* Workflow:
-	 * (1) Initialize the reader object
-	 * (2) Load the serialized file on onto the Reader Object
-	 * (3 & 4) Create the class coverage map and class hit map for the Reader Object
-	 * (5) Display maps
-	 * */
-	SerReader reader = new SerReader(new File(args[0]));
-	reader.loadClassInfo();
-	reader.createClassCoverageMaps();
-	reader.createClassHitsMaps();
-		
-	//displays all the Hit and Coverage maps in the Project
-	reader.displayAllClassHitsAndCoverageMaps();		
+        /* Workflow:
+         * (1) Initialize the reader object
+         * (2) Load the serialized file on onto the Reader Object
+         * (3 & 4) Create the class coverage map and class hit map for the Reader Object
+         * (5) Display maps
+         */
+         SerReader reader = new SerReader(new File(args[0]));
+         reader.loadClassInfo();
+         reader.createClassCoverageMaps();
+         reader.createClassHitsMaps();
+        
+         //displays all the Hit and Coverage maps in the Project
+         reader.displayAllClassHitsAndCoverageMaps();        
     }
 }
