@@ -26,9 +26,11 @@ Workflow
 
 SerReader 
 ---------------
-The SerReader class takes the serialized file cobertura produces whenever it 
-instruments a program and can extract information from the file. Currently it 
-can be used to find both coverage and hits/executions per line of the instrumented program.
+The SerReader class takes a cobertura produced serialized file cobertura and 
+extracts information from the file. 
+Currently it can be used to find both coverage and hits/executions 
+per line of the instrumented program.
+
 The main fields for the SerReader object are:
 	
 	- classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
@@ -47,18 +49,17 @@ Test Run
 Within the repo is included the project triangle, you can use the SerReader to deserialize
 the file produced when cobertura instruments triangle.
 
-- Go into Triangle and use cobertura to produce a serialized file
+- Go into Triangle and use cobertura to produce a serialized file. In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
 	- cd Triangle
 	- mvn cobertura:cobertura-integration-test
 
-- In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
-  run the ReaderMain.java program with the absolute path to the .ser file as the argument
+- run the run-main target with the absolute path to the .ser file as the argument
 	-  ant -Darg0=triangle/target/cobertura/cobertura.ser run-main
 
-- ReaderMain will display which lines were covered by all the tests and how many times each line
+- ReaderMain will display which lines were covered during test(s) and how many times each line
   was executed.   
 
-- The classes in src were originally run in eclipse using the Run Configurations option to specify 
+- The src files were originally run in eclipse using the Run Configurations option to specify 
 command line arguments
 
 LineBasedSerReader 
@@ -115,8 +116,4 @@ The directory structure is as follows
 		   |
 		   |--- main			Contains SerReader and ReaderMain
 		   |
-		   |--- lineReader:		Contains all the code associated with the LineBasedSerReader subclass 
-
-
-	
-
+		   |--- lineReader:		Contains all the code associated with the LineBasedSerReader subclass
