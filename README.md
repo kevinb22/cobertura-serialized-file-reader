@@ -54,7 +54,7 @@ the file produced when cobertura instruments triangle.
 	- mvn cobertura:cobertura-integration-test
 
 - run the run-main target with the absolute path to the .ser file as the argument
-	-  ant -Darg0=triangle/target/cobertura/cobertura.ser run-main
+	-  ant -Darg0=src/triangle/target/cobertura/cobertura.ser run-main
 
 - ReaderMain will display which lines were covered during test(s) and how many times each line
   was executed.   
@@ -73,7 +73,7 @@ does not do per test line coverage the implementation was never fully completed.
 LineBasedSerReader can be run using the similiar commands to the SerReader above
 
 - run the LineBasedReaderMain
-	- ant -Darg0=triangle/target/cobertura/cobertura.ser run-lb-main
+	- ant -Darg0=src/triangle/target/cobertura/cobertura.ser run-lb-main
 
 LineBasedSerReader Code 
 -----------------------------------
@@ -107,13 +107,12 @@ The directory structure is as follows
 	
 	cobertura-ser-reader
 		|
-		|--- lib:			Jars or files used in the repo
+		|--- lib:                       Jars or files used in the repo
 		|
-		|--- triangle:			Test program 
+		|--- triangle:                  Test program 
 		|
-		|--- src:			Contains source code for the readers
+		|--- src:                       Contains source code for the readers
 		   |
+		   |--- main                    Contains SerReader and ReaderMain
 		   |
-		   |--- main			Contains SerReader and ReaderMain
-		   |
-		   |--- lineReader:		Contains all the code associated with the LineBasedSerReader subclass
+		   |--- lineReader:             Contains all the code associated with the LineBasedSerReader subclass
