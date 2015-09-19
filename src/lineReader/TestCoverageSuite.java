@@ -5,10 +5,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * This class holds a list of TestCoverage objects and represents a TestSuite. The class holds 
- * The name of all the tests executed on a program, the lines cumulatively covered by all the tests,
- * and the pass/fail results of all the tests on the program.
- * */
+ * This class holds a list of TestCoverage objects and represents the code of a program covered by all the tests 
+ * in a test suite and the results of each test. 
+ * The class holds the name of all the tests executed on a program, the lines cumulatively covered 
+ * by all the tests(represented by a LineList), and the pass/fail results of all the tests on the program.
+ *
+ * In order to determine the accumulative line coverage from all the tests in the test suite the sumAllLines() method
+ * should be called which will conbine all the information from the LineLists of each TestCoverage object. 
+ */
 
 public class TestCoverageSuite {
     /** ArrayList to hold all the tests in a TestSuite. */
@@ -27,17 +31,17 @@ public class TestCoverageSuite {
         this.allLines = new LineList();
     }
     
-    /** Assign the name of the TestSuite object to the parameter. */
+    /** Assigns the name of the TestSuite object to the parameter. */
     public void assignName(String name){
         this.testSuiteName = name;
     }
     
-    /** Add a test to the Test Suite. */
+    /** Adds a test to the Test Suite. */
     public void addTest(TestCoverage test){
         this.allTests.add(test);
     }
     
-    /** loop through all the test cases to get the accumulative passed and failed test count and 
+    /** Loops through all the test cases to get the accumulative passed and failed test count and 
      * assign it to a new Line in allLines. */
     public void sumAllLines(){
         Map<Integer, int[]> tempMap = new TreeMap<>(); 

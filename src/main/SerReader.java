@@ -12,9 +12,10 @@ import net.sourceforge.cobertura.coveragedata.ProjectData;
 /**
  * This class deserializes a cobertura.ser file and creates a map representing lines executed or 
  * map representing hits per line of a the program contained in the .ser file.
+ * 
  * A cobertura produced .ser file is required as a parameter in the constructor.
  *
- * Once this object is declared an initialized the first call should be to the loadClassInfo()
+ * Once a SerReader object is declared and initialized the first call should be to the loadClassInfo()
  * method which loads all the information from the .ser file to the object.
  * Next the createClassCoverageMaps() and createClassHitsMaps() methods should be called
  * which create the executions and hits maps respectively.
@@ -22,9 +23,8 @@ import net.sourceforge.cobertura.coveragedata.ProjectData;
  * these maps.
  *
  * Alternatively displayAllHitsMaps() and displayAllCoverageMaps() displays only the hits or 
- * coverage maps in the object.
- * Finally displayClassHitsAndCoverageMaps(String className) prints the hits and coverage maps
- * of the class specified by the string. 
+ * coverage maps in the object whereas displayClassHitsAndCoverageMaps(String className) 
+ * prints the hits and coverage maps of the class specified by the string. 
  */
 
 public class SerReader{
@@ -39,22 +39,22 @@ public class SerReader{
      * since it holds the ClassData objects it can access other ClassData objects unlike classMap. */
     protected Collection<ClassData> allClasses;
     
-    /** Map where each String represents the name of a class in ProjectData
+    /** Map where each String represents the name of a ClassData object in ProjectData
      *  For the map that is held in the value field:
      *  The key in the map represents the line number of a program and the 
      *  value represents whether the line was covered/executed in the tests */
     private TreeMap<String, TreeMap<Integer, Boolean>> classCoverageMap;
     
-    /** Map where each String represents the name of a class in ProjectData
+    /** Map where each String represents the name of a ClassData object in ProjectData
      *  For the map that is held in the value field:    
      *  The key in map represents the line number of a program and the 
      *  value represents amount of times the line was covered/executed in the tests */
     private TreeMap<String, TreeMap<Integer, Integer>> classHitsMap;
     
-    /** Ensures that the classes in project have been retrieved and placed in a Collection. */
+    /** Ensures that the ClassData objects in a ProjectData object have been retrieved and placed in a Collection. */
     protected boolean classesLoaded = false;
     
-    /** Constructor, initialize the ser file, load the file into the ProjectData Object. */
+    /** Constructor, initializes the ser file, load the file into the ProjectData Object. */
     public SerReader(File serFile) {
         if(serFile.exists()) {
             this.serFile = serFile;
@@ -65,7 +65,7 @@ public class SerReader{
         }
     }
     
-    /** Load all classes from ProjectData Object into a collection of ClassData Objects. */
+    /** Places all ClassData objects from ProjectData Object into a collection of ClassData Objects. */
     @SuppressWarnings("unchecked")
     public void loadClassInfo()  {
         this.allClasses = this.project.getClasses();
@@ -77,12 +77,12 @@ public class SerReader{
         System.out.println(" have been loaded \n");
     }
     
-    /** Return a collection of all the classes loaded by SerReader. **/
+    /** Returns a collection of all the ClassData object that have been loaded. **/
     protected Collection<ClassData> getAllClasses(){
         return this.allClasses;
     }
     
-    /** Create a map where key=class name, value=Map(LineNumber, boolean of coverage) for all the classes contained in the .ser file. */
+    /** Creates a map where key=class name, value=Map(LineNumber, boolean of coverage) for all loaded ClassData objects. */
     public void createClassCoverageMaps(){
         checkClassesLoaded();
         this.classCoverageMap = new TreeMap<String, TreeMap<Integer, Boolean>>();
@@ -100,7 +100,7 @@ public class SerReader{
         }
     }
     
-    /** Take a class and creates a map that holds key=line number, value=T/F for executed. */
+    /** Takes a ClassData object as a parameter and for that object creates a map that holds key=line number, value=T/F for executed. */
     private TreeMap<Integer,Boolean> createClassCoverageMap(ClassData singleClass){
         TreeMap<Integer, Boolean> temp = new TreeMap<Integer, Boolean>();
         int allLinesAndBranches = singleClass.getNumberOfValidBranches() + singleClass.getNumberOfValidLines();
@@ -117,7 +117,7 @@ public class SerReader{
         return temp;
     }
     
-    /** Create a map where key=class name, value=Map(LineNumber, # of hits) for all classes contained in the .ser file. */
+    /** Creates a map where key=class name, value=Map(LineNumber, # of hits) for all loaded ClassData objects. */
     public void createClassHitsMaps(){
         checkClassesLoaded();
         this.classHitsMap = new TreeMap<String, TreeMap<Integer, Integer>>();
@@ -135,7 +135,7 @@ public class SerReader{
         }
     }
     
-    /** Take a class and creates a map that holds key=line number, value=# of hits. */
+    /** Takes a ClassData object as a parameter and for that object creates a map that holds key=line number, value=# of hits. */
     private TreeMap<Integer,Integer> createClassHitsMap(ClassData singleClass){
         TreeMap<Integer, Integer> temp = new TreeMap<Integer, Integer>();
         int allLinesAndBranches = singleClass.getNumberOfValidBranches() + singleClass.getNumberOfValidLines();
@@ -149,7 +149,7 @@ public class SerReader{
         return temp;
     }
     
-    /** Loops through Class Map to find a certain class name, returns the Line Coverage Map of that class. */
+    /** Returns the Line Coverage Map of the class specified in the parameter. */
     public TreeMap<Integer, Boolean> getClassCoverageInfo(String className){
         for(String clazz : this.classCoverageMap.keySet()){
             if(clazz.equals(className))
@@ -159,7 +159,7 @@ public class SerReader{
         return null;
     }
     
-    /** Loops through Class Map to find a certain class name, returns the Hit Coverage Map of that class. */
+    /** Returns the Hit Coverage Map of that class specified in the parameter. */
     public TreeMap<Integer, Integer> getClassHitInfo(String className){
         for(String clazz : this.classHitsMap.keySet()){
             if(clazz.equals(className))
@@ -174,12 +174,12 @@ public class SerReader{
         return this.classCoverageMap;
     }
     
-    /** Returns the classHitMap. */
+    /** Returns the classHitsMap. */
     public TreeMap<String, TreeMap<Integer, Integer>> getClassHitMap(){
         return this.classHitsMap;
     }
     
-    /** Displays all the classCoverageMaps in the Project. */
+    /** Displays the classCoverageMaps for each ClassData object in the ProjectData object. */
     public void displayAllCoverageMaps(){
         for(String className : this.classCoverageMap.keySet()) {
             if (className != null && this.classCoverageMap.get(className) != null) {
@@ -189,7 +189,7 @@ public class SerReader{
         }
     }
     
-    /** Displays all the classHitsMaps in the Project. */
+    /** Displays the classHitsMaps for each ClassData object in the ProjectData object. */
     public void displayAllHitMaps(){
         for(String className : this.classHitsMap.keySet()) {
             if (className != null && this.classHitsMap.get(className) != null) {
@@ -199,8 +199,7 @@ public class SerReader{
         }
     }
     
-    /** Loops through all ClassData objects in Collection
-     *  if the class is in the Collection it will print out hits and coverage info about the class. */
+    /** Displays the hit and coverage info of the class specified in the parameter. */
     public void displayClassHitsAndCoverageMaps(String className) {
         checkClassesLoaded();
         for(ClassData clazz : this.allClasses) {
@@ -212,7 +211,7 @@ public class SerReader{
         System.out.println(className + " Class is not in project");
     }
     
-    /** Displays information about all the ClassData objects in Collection. */
+    /** Displays the hits and coverage info about all the ClassData objects in Collection. */
     public void displayAllClassHitsAndCoverageMaps() {
         checkClassesLoaded();
         for(ClassData clazz: this.allClasses) {
@@ -220,7 +219,7 @@ public class SerReader{
         }
     }
     
-    /** Find various statistics about a ClassData object, helper program to get classClassInfo() method. */
+    /** Finds various statistics about a ClassData object, helper program. */
     private void display(ClassData singleClass) {
         Map<Integer, Boolean> classLineCoverage = new TreeMap<Integer, Boolean>();
         Map<Integer, Integer> classHitsCoverage = new TreeMap<Integer, Integer>();
@@ -245,7 +244,7 @@ public class SerReader{
         displayHits(classHitsCoverage);
     }
     
-    /** Loop through a classCoverage map and print out all the lines executed per class. */
+    /** Loops through a coverage map and prints out all the lines executed per class. */
     private void displayCoverage(Map<Integer, Boolean> classLineCoverage) {
         if(classLineCoverage.isEmpty() || classLineCoverage == null) {
             System.out.println("Lines not covered in this class \n");
@@ -261,7 +260,7 @@ public class SerReader{
         }
     }
     
-    /** Loop through a classHits map and print out all the number of hits per line in a class. */
+    /** Loops through a hits map and prints out the number of hits per line in a class. */
     private void displayHits(Map<Integer, Integer> classHitsCoverage) {
         if(classHitsCoverage.isEmpty() || classHitsCoverage == null) {
             System.out.println("Lines not covered in this class \n");

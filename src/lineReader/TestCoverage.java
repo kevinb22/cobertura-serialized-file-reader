@@ -3,9 +3,9 @@ package lineReader;
 import java.util.TreeMap;
 
 /**
- * This class holds information about a single test on a program and represents a Testr. The class holds
- * The name of the test, the lines covered/executed by the test (represented by a LineList)
- * and the pass/fail result of the test.
+ * This class represents the coverage of a test on a program and the results of the test. 
+ * The class holds the name of the test, the lines(of the porgram ) 
+ * covered/executed by the test (represented by a LineList) and the pass/fail result of the test.
  */
 
 public class TestCoverage {

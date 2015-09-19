@@ -1,4 +1,4 @@
-Cobertura-ser-reader
+Cobertura Ser Reader
 --------------------
 
 Set Up
@@ -43,6 +43,21 @@ ReaderMain is a main class constructed to initialize the SerReader and print out
 classCoverageMap and classHitsMap of whatever serialized file the SerReader loaded.
 ReaderMain takes one command line argument, which is the absolute path to a 
 cobertura.ser file.
+
+Cobertura Overview
+------------------
+Cobertura organizes the coverage data of a program using objects. The following will give a brief overview
+of ProjectData, ClassData, LineData which are the objects the SerReader uses to extract information.
+	
+	|--- ProjectData:                       Highest level, represents the entire java project, holds all the ClassData objects 
+		|
+		|--- ClassData                  Middle level, represents a single class in a java project, holds LineData objects 
+			|
+			|--- LineData:          Low leve, represents a line in a java class, holds hit/execution information 
+
+The SerReader starts with the ProjectData object and extracts each ClassData object. For each ClassData object it creats a coverage and
+hit map using the information from each LineData object. For more information on how the Cobertura objets interact please look at the 
+Cobertrua source code.
 
 Test Run
 --------

@@ -5,8 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * This class holds a list of Line Objects and represents a the covered and uncovered lines of a program after
- * it has been tested.
+ * This class holds a list of Line Objects and represents a program where each Line object corresponds to a line in the program.
  * This class can also compute the suspiciousness of lines using the Tarantula fault localization technique using
  * its compute method, read the comments in the compute method for more information.
  */

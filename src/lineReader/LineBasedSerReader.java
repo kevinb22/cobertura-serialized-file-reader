@@ -12,7 +12,7 @@ import net.sourceforge.cobertura.coveragedata.LineData;
  * Line Object pertaining to each line of a the program contained in the .ser file.
  * A cobertura produced .ser file is required as a parameter in the constructor.
  *
- * Once this object is declared and initialized the first call should be to
+ * Once a LineBasedSerReader object is declared and initialized the first call should be to
  * the loadClassInfo() method which loads all the info in the .ser file to the object.
  * Next the object needs to call thecreateClassesMap() method. This method creates a Line Map 
  * for each class that is in the .ser file. 
@@ -32,7 +32,7 @@ public class LineBasedSerReader extends SerReader {
         super(serFile);
     }
     
-    /** Create a map where key=class name, value=Map(LineNumber, Line). */
+    /** Creates a map where key=class name, value=Map(LineNumber, Line). */
     public void createClassesMap() {
         checkClassesLoaded();
         this.classesMap = new TreeMap<String, TreeMap<Integer, Line>>();
@@ -51,7 +51,7 @@ public class LineBasedSerReader extends SerReader {
         }
     }
     
-    /** Loops through the classesMap to find the class specified by the parameter, returns the Line Map of the class. */
+    /** Returns the Line Map of the class used as a parameter. */
     public TreeMap<Integer, Line> getClassLineMap(String className){
         for(String clazz : this.classesMap.keySet()){
             if(clazz.equals(className))
@@ -77,7 +77,7 @@ public class LineBasedSerReader extends SerReader {
         }
     }
     
-    /** Take a class and creates a map that holds key=line number, value=Line object. */
+    /** Takes a class and creates a map that holds key=line number, value=Line object. */
     private TreeMap<Integer, Line> createClassLineCoverage(ClassData singleClass){
         TreeMap<Integer, Line> temp = new TreeMap<Integer, Line>();
         int allLinesAndBranches = singleClass.getNumberOfValidBranches() + singleClass.getNumberOfValidLines();
@@ -99,7 +99,7 @@ public class LineBasedSerReader extends SerReader {
         return temp;
     }
     
-    /** Loop through a Line Coverage map of a class and print out all the Lines. */
+    /** Display the Line Objects in a Line Coverage map. */
     private void display(Map<Integer, Line> classLineCoverage) {
         if(classLineCoverage.isEmpty() || classLineCoverage == null) {
             System.out.println("Lines not covered in this class \n");
