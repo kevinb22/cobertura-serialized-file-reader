@@ -1,96 +1,74 @@
 Cobertura Ser Reader
 --------------------
 
-Set Up
-------
-The cobertura SerReader requires the cobertura src files to be on the build path additionally cobertura will 
-require slf4j (Simple Logging Facade for Java) just add the slf4j-api-...jar and slf4j-simple...jar. The
-sites for these files are listed below. Alternatively the project includes the cobertura src files in the
-cobertura directory and the slf4j files in the lib directory. (Note: Cobertura-2.1.1 does not contain the 
-cobertura src files)
-
--https://github.com/cobertura/cobertura 
-
--http://www.slf4j.org/
-
-Workflow
---------
-
-- (1) Initialize the SerReader object
-
-- (2) Load the serialized file on onto the SerReader Object
-
-- (3) Use the SerReader tp create a hit or execution class map
-
-- (4) Display the results
-
 SerReader 
 ---------------
-The SerReader class takes a cobertura produced serialized file cobertura and 
-extracts information from the file. 
-Currently it can be used to find both coverage and hits/executions 
-per line of the instrumented program.
+The SerReader class takes a cobertura produced serialized file and extracts information from the file. 
+It can be used to find both coverage and hits/executions per line of a program that has been instrumented by cobertura.
 
 The main fields for the SerReader object are:
 	
-	- classCoverageMap is a Integer, Boolean map, where key=line # & value=executed
+	- classCoverageMap is a Integer, Boolean map, where key=line number & value=executed
 
-	-  classHitsMap is a Integer, Integer map, where key=line # & value=hit #
+	-  classHitsMap is a Integer, Integer map, where key=line number & value=hit count
 
 ReaderMain 
 ----------------
-ReaderMain is a main class constructed to initialize the SerReader and print out the
-classCoverageMap and classHitsMap of whatever serialized file the SerReader loaded.
-ReaderMain takes one command line argument, which is the absolute path to a 
-cobertura.ser file.
+ReaderMain is a main class that initializes the SerReader and print out the
+classCoverageMap and classHitsMap of a program that has been instrumented by cobertura.
+ReaderMain takes one command line argument, which is the path to a cobertura.ser file. 
+ReaderMain's workflow is as follows:
+
+- (1) Initialize the SerReader object
+
+- (2) Load the serialized file onto the SerReader Object
+
+- (3) Use the SerReader to create a hit or execution class map
+
+- (4) Display the results
 
 Cobertura Overview
 ------------------
-Cobertura organizes the coverage data of a program using objects. The following will give a brief overview
-of ProjectData, ClassData, LineData which are the objects the SerReader uses to extract information.
+Cobertura stores the coverage data of a program into the ProjectData, ClassData, and LineData objects. 
+The following gives a brief overview of these objects.
 	
-	|--- ProjectData:                       Highest level, represents the entire java project, holds all the ClassData objects 
+	|--- ProjectData:                       High level, represents the entire java project, holds all the ClassData objects 
 		|
-		|--- ClassData                  Middle level, represents a single class in a java project, holds LineData objects 
+		|--- ClassData                  Mid level, represents a single class in a java project, holds LineData objects 
 			|
-			|--- LineData:          Low leve, represents a line in a java class, holds hit/execution information 
+			|--- LineData:          Low level, represents a line in a java class, holds hit/execution information 
 
-The SerReader starts with the ProjectData object and extracts each ClassData object. For each ClassData object it creats a coverage and
+The SerReader starts with the ProjectData object and seperates the ClassData objects. For each ClassData object it creats a coverage and
 hit map using the information from each LineData object. For more information on how the Cobertura objets interact please look at the 
 Cobertrua source code.
 
 Test Run
 --------
-Within the repo is included the project triangle, you can use the SerReader to deserialize
-the file produced when cobertura instruments triangle.
+Within the repo is included the project triangle to serve as a test run of the SerReader. The test can be reproduced in eclipse using 
+the Run Configurations option to specify command line arguments
 
-- Go into Triangle and use cobertura to produce a serialized file. In the target directory of Triangle, a cobertura directory with cobertura.ser will appear
+- Use cobertura to instrument triangle which produces a serialized file. A cobertura.ser will appear in triangle/target/cobertura
 	- cd Triangle
 	- mvn cobertura:cobertura-integration-test
 
-- run the run-main target with the absolute path to the .ser file as the argument
+- run the run-main target with the path to the .ser file as the argument
 	-  ant -Darg0=src/triangle/target/cobertura/cobertura.ser run-main
 
-- ReaderMain will display which lines were covered during test(s) and how many times each line
-  was executed.   
-
-- The src files were originally run in eclipse using the Run Configurations option to specify 
-command line arguments
+- ReaderMain will outputs the lines that were covered during test(s) and how many times each line
+  was executed to the console.
 
 LineBasedSerReader 
 ------------------------
-The LineBasedSerReader is a subclass of the SerReader. It uses a Integer, Line
-map where key=line # & value=various info about the line #. The Line object 
-contains information about the line such as it's number and how many pass or fail
-tests the line has been executed in. Originally the LineBasedSerReader was to be
-used to re-implement the tarantula fault localization technique. But since cobertura
-does not do per test line coverage the implementation was never fully completed. The
-LineBasedSerReader can be run using the similiar commands to the SerReader above
+The LineBasedSerReader is a subclass of the SerReader. It uses a Integer, Line map where key=line # & value=Line object. 
+The Line object contains information about the line such as it's number and how many pass or fail tests the line has been executed in. 
+Originally the LineBasedSerReader was to be used to re-implement the tarantula fault localization technique. But since cobertura
+does not do per test line coverage the implementation was never fully completed. 
+The LineBasedSerReader can be run using the similiar commands to the SerReader above
 
 - run the LineBasedReaderMain
 	- ant -Darg0=src/triangle/target/cobertura/cobertura.ser run-lb-main
 
-LineBasedSerReader Code 
+LineBasedSerReader Supporting Classes 
 -----------------------------------
 
 - Line: Simple object that holds information about a line in a program
@@ -101,8 +79,12 @@ LineBasedSerReader Code
 
 - TestCoverageSuite: Collection of TestCoverage objects. 
 
-The workflow for the LineBasedSerReader Tarantula Approach would have been:
---------------------------------------------------------------------------
+LineBasedSerReader Tarantula workflow
+-------------------------------------
+The LineBasedSerReader was originally going to be used as part of a re-implementation of the tarantula fault localization
+technique. The LineBasedSerReader would have read the coverage of a program by a test suite then combine all the information
+and compute suspiciousness levels per line based on the tarantula formula. However a more efficient way was discovered using
+tacoco. The workflow for the LineBasedSerReader Tarantula Approach would have been:
 
 - (1) Run one test case, use cobertura to output the serialized file with the lines
 executed
@@ -115,6 +97,19 @@ the LineList to a TestCoverage with the test case results
 - (4) Put all the TestCoverage cases into a TestCoverageSuite object
 
 - (5) Use TestCoverageSuite to calculate suspiciousness for each Line Object
+
+Using the SerReader & LineBasedSerReader
+-----------------------------------------
+To use either the SerReader or the LineBasedSerReader to read and display line coverage of code other than triangle:
+
+- (1) Create a pom.xml file that contains the cobertura plugin (see the pom.xml file in trianlge), create a package that follows 
+a maven build with the program code in src/main and the test code in src/test. (See the triangle test package for clarification,
+any pacakge to be read by the Readers should have a similiar layout) 
+
+- (2) Move the entire package into the project src directory (along with main, lineReader, and triangle)
+
+- (3) Follow the test run instructions (use cobertura to analyze the program and create a .ser file use the 
+ant run-main command with -Darg0 being the path to the package's cobertura.ser file)
 
 Directory Structure
 -------------------
