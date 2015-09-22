@@ -98,8 +98,8 @@ the LineList to a TestCoverage with the test case results
 
 - (5) Use TestCoverageSuite to calculate suspiciousness for each Line Object
 
-Using the SerReader & LineBasedSerReader
------------------------------------------
+Generalizing SerReader & LineBasedSerReader
+--------------------------------------------
 To use either the SerReader or the LineBasedSerReader to read and display line coverage of code other than triangle:
 
 - (1) Create a pom.xml file that contains the cobertura plugin (see the pom.xml file in trianlge), create a package that follows 
