@@ -1,5 +1,17 @@
 <project name="cobertura-ser-reader" default="compile" basedir=".">
 
+<!-- patternset to decrease redundancy in the buildfile-->
+   <patternset id="jars" >
+      <include name="**/*.jar"/>
+   </patternset>
+  
+<!-- Path attribute using the patternset-->
+   <path id="jar.files"> 
+      <fileset dir="lib">
+         <patternset refid="jars"/>
+      </fileset>
+   </path>
+   
 <!-- Target to clean up -->
     <target name ="clean" description="Clean">
         <delete dir="bin"/>
@@ -13,23 +25,17 @@
 <!-- Target to compile the SerReader classes-->
     <target name="compile-reader" depends="init" description="Compile">
        <javac srcdir="./src/main" destdir="bin" debug="true" fork="no" includeantruntime="true">
-           <classpath>
-            <pathelement path="lib/cobertura-2.1.1.jar"/>
-            <pathelement path="lib/slf4j-simple-1.7.12.jar"/>
-            <pathelement path="lib/slf4j-api-1.7.12.jar"/>
-           </classpath>
+           <classpath refid="jar.files"/>
        </javac>
     </target>
 
 <!-- Target to compile the LineBasedSerReader classes-->
     <target name="compile-lb-reader" depends="compile-reader" description="Compile">
        <javac srcdir="./src/lineReader" destdir="bin" debug="true" fork="no" includeantruntime="true">
-           <classpath>
-            <pathelement path="bin/main/SerReader.class"/>
-            <pathelement path="lib/cobertura-2.1.1.jar"/>
-            <pathelement path="lib/slf4j-simple-1.7.12.jar"/>
-            <pathelement path="lib/slf4j-api-1.7.12.jar"/>
-           </classpath>
+          <classpath>
+             <pathelement path="bin/main/SerReader.class"/>
+             <path refid="jar.files"/>    
+          </classpath>
        </javac>
     </target>
 
@@ -37,9 +43,7 @@
     <target name="run-main" depends="compile-reader">
         <java classname="main.ReaderMain"> 
             <classpath>
-                <pathelement path="lib/cobertura-2.1.1.jar"/>
-                <pathelement path="lib/slf4j-simple-1.7.12.jar"/>
-                <pathelement path="lib/slf4j-api-1.7.12.jar"/>
+                <path refid="jar.files"/>
                 <pathelement location="bin"/>
             </classpath>
             <arg value="${arg0}"/>
@@ -50,9 +54,7 @@
     <target name="run-lb-main" depends="compile-lb-reader">
         <java classname="lineReader.LineBasedReaderMain">
             <classpath>
-                <pathelement path="lib/cobertura-2.1.1.jar"/>
-                <pathelement path="lib/slf4j-simple-1.7.12.jar"/>
-                <pathelement path="lib/slf4j-api-1.7.12.jar"/>
+                <path refid="jar.files"/>
                 <pathelement location="bin"/>
             </classpath>
             <arg value="${arg0}"/>
